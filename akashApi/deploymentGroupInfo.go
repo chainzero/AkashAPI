@@ -89,7 +89,7 @@ type DeploymentGroupDetails struct {
 }
 
 func main() {
-	// Relace ownerID, DSEQ, and GSEQ values in function call template below
+	// Replace ownerID, DSEQ, and GSEQ values in function call template below
 	deploymentGroupInfo("akash1ss3ty253h6yun0a0fly8s0prcx34x4q2qewpkk", "2963732", "1")
 }
 

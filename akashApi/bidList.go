@@ -49,7 +49,7 @@ type BidListDetails struct {
 }
 
 func main() {
-	// Relace DSEQ values in function call template below
+	// Replace DSEQ values in function call template below
 	bidList("2969932")
 }
 
