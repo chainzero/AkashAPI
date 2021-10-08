@@ -49,7 +49,7 @@ type BidListDetails struct {
 }
 
 func main() {
-	// Relace ownerID and DSEQ values in function call template below
+	// Relace DSEQ values in function call template below
 	bidList("2969932")
 }
 
