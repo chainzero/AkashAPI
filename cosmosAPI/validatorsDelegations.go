@@ -5,39 +5,24 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"time"
 )
 
 type DelegationDetail struct {
-	Validator struct {
-		OperatorAddress string `json:"operator_address"`
-		ConsensusPubkey struct {
-			Type string `json:"@type"`
-			Key  string `json:"key"`
-		} `json:"consensus_pubkey"`
-		Jailed          bool   `json:"jailed"`
-		Status          string `json:"status"`
-		Tokens          string `json:"tokens"`
-		DelegatorShares string `json:"delegator_shares"`
-		Description     struct {
-			Moniker         string `json:"moniker"`
-			Identity        string `json:"identity"`
-			Website         string `json:"website"`
-			SecurityContact string `json:"security_contact"`
-			Details         string `json:"details"`
-		} `json:"description"`
-		UnbondingHeight string    `json:"unbonding_height"`
-		UnbondingTime   time.Time `json:"unbonding_time"`
-		Commission      struct {
-			CommissionRates struct {
-				Rate          string `json:"rate"`
-				MaxRate       string `json:"max_rate"`
-				MaxChangeRate string `json:"max_change_rate"`
-			} `json:"commission_rates"`
-			UpdateTime time.Time `json:"update_time"`
-		} `json:"commission"`
-		MinSelfDelegation string `json:"min_self_delegation"`
-	} `json:"validator"`
+	DelegationResponses []struct {
+		Delegation struct {
+			DelegatorAddress string `json:"delegator_address"`
+			ValidatorAddress string `json:"validator_address"`
+			Shares           string `json:"shares"`
+		} `json:"delegation"`
+		Balance struct {
+			Denom  string `json:"denom"`
+			Amount string `json:"amount"`
+		} `json:"balance"`
+	} `json:"delegation_responses"`
+	Pagination struct {
+		NextKey string `json:"next_key"`
+		Total   string `json:"total"`
+	} `json:"pagination"`
 }
 
 func main() {
@@ -48,7 +33,7 @@ func main() {
 func validatorsDelegations(id string) {
 	method := "GET"
 
-	url := "http://135.181.60.250:1317/cosmos/staking/v1beta1/validators/" + id
+	url := "http://135.181.60.250:1317/cosmos/staking/v1beta1/validators/" + id + "/delegations"
 
 	client := &http.Client{}
 	req, err := http.NewRequest(method, url, nil)
